@@ -4,6 +4,11 @@ export default function Home() {
 
     const {user, userId} = auth()
 
+    /* Todo
+     - Header
+     
+     */
+
     return (
         <div>
             <p>Test</p>
