@@ -13,7 +13,8 @@ import {AcmeLogo} from "@/components/layout/navbar/logo";
 import NextLink from 'next/link'
 import {usePathname} from "next/navigation";
 import {useState} from "react";
-import {UserButton, useUser} from "@clerk/nextjs";
+import {SignedIn, SignedOut, UserButton, useUser} from "@clerk/nextjs";
+import UserAvatar from "@/components/layout/user_avatar/user-avatar.component";
 
 export default function Navigation() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -65,22 +66,30 @@ export default function Navigation() {
                 </NavbarItem>
                 <NavbarItem isActive={path === '/dashboard' ? true : false}>
                     <NextLink href={'/dashboard'}>
-                        Dashboard
+                        Categories
                     </NextLink>
                 </NavbarItem>
             </NavbarContent>
 
             <NavbarContent justify="end">
+                <SignedIn>
+                    <NavbarItem>
+                        <NextLink href={'/dashboard'}>
+                            Favourite Pets
+                        </NextLink>
+                    </NavbarItem>
+                </SignedIn>
                 <NavbarItem className="flex">
-                    {isLoaded && user ?
-                        <UserButton afterSignOutUrl="/"/>
-                        :
-                        <NextLink href='/login' passHref legacyBehavior>
+                    <SignedOut>
+                        <NextLink href='/sign-in' passHref legacyBehavior>
                             <Button as={Link} color="warning" variant="flat">
                                 Sign In
                             </Button>
                         </NextLink>
-                    }
+                    </SignedOut>
+                    <SignedIn>
+                        <UserAvatar/>
+                    </SignedIn>
                 </NavbarItem>
             </NavbarContent>
 

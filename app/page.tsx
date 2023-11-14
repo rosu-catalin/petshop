@@ -1,21 +1,10 @@
-import {auth, UserButton} from "@clerk/nextjs";
+import Hero from "@/components/layout/hero/hero.component";
 
 export default function Home() {
 
-    const {user, userId} = auth()
-
-    /* Todo
-     - Header
-     
-     */
-
     return (
         <div>
-            <p>Test</p>
-            {user && <p>
-                {userId}
-            </p>}
-            <UserButton afterSignOutUrl="/"/>
+            <Hero/>
         </div>
     )
 }
