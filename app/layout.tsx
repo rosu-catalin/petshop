@@ -3,13 +3,7 @@ import {Inter, Nunito, Poppins} from 'next/font/google'
 import './globals.css'
 import {ClerkProvider} from "@clerk/nextjs";
 import {Providers} from "@/app/providers";
-import {undefined} from "zod";
 
-const inter = Inter({subsets: ['latin']})
-const nunito = Nunito({
-    subsets: ['latin'],
-    display: "swap"
-})
 const poppins = Poppins({
     weight: ["400", "500", "600", "700"],
     subsets: ['latin']

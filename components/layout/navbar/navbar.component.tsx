@@ -13,14 +13,13 @@ import {AcmeLogo} from "@/components/layout/navbar/logo";
 import NextLink from 'next/link'
 import {usePathname} from "next/navigation";
 import {useState} from "react";
-import {SignedIn, SignedOut, UserButton, useUser} from "@clerk/nextjs";
+import {SignedIn, SignedOut} from "@clerk/nextjs";
 import UserAvatar from "@/components/layout/user_avatar/user-avatar.component";
+import {HeartIcon} from "@heroicons/react/24/solid";
 
 export default function Navigation() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const path = usePathname()
-
-    const {user, isLoaded} = useUser()
 
     const menuItems = [
         "Reservations",
@@ -32,16 +31,17 @@ export default function Navigation() {
             isBordered
             isMenuOpen={isMenuOpen}
             onMenuOpenChange={setIsMenuOpen}
-            maxWidth='2xl'
+            maxWidth='xl'
+            height='5rem'
             isBlurred={true}
         >
             <NavbarContent className="sm:hidden" justify="start">
                 <NavbarMenuToggle aria-label={isMenuOpen ? "Close menu" : "Open menu"}/>
             </NavbarContent>
 
-            <NavbarContent className="sm:hidden pr-3" justify="center">
+            <NavbarContent className="hidden sm:flex gap-4" justify="start">
                 <NextLink href='/' passHref legacyBehavior>
-                    <Link>
+                    <Link color='foreground'>
                         <NavbarBrand className="gap-2">
                             <AcmeLogo/>
                             <p className="font-bold text-inherit">PetHub</p>
@@ -50,23 +50,10 @@ export default function Navigation() {
                 </NextLink>
             </NavbarContent>
 
-            <NavbarContent className="hidden sm:flex gap-4" justify="center">
-                <NextLink href='/' passHref legacyBehavior>
-                    <Link>
-                        <NavbarBrand className="gap-2">
-                            <AcmeLogo/>
-                            <p className="font-bold text-inherit">PetHub</p>
-                        </NavbarBrand>
-                    </Link>
-                </NextLink>
-                <NavbarItem isActive={path === '/' ? true : false}>
-                    <NextLink href={'/'}>
-                        Home
-                    </NextLink>
-                </NavbarItem>
-                <NavbarItem isActive={path === '/dashboard' ? true : false}>
-                    <NextLink href={'/dashboard'}>
-                        Categories
+            <NavbarContent className="hidden sm:flex gap-4" justify='center'>
+                <NavbarItem isActive={path.startsWith('/category/')}>
+                    <NextLink href={'/category/dogs'}>
+                        Find Pets
                     </NextLink>
                 </NavbarItem>
             </NavbarContent>
@@ -74,8 +61,8 @@ export default function Navigation() {
             <NavbarContent justify="end">
                 <SignedIn>
                     <NavbarItem>
-                        <NextLink href={'/dashboard'}>
-                            Favourite Pets
+                        <NextLink href={'/dashboard'} aria-label='Favorite Animals' title='See your favorite animals'>
+                            <HeartIcon className="h-8 w-8 hover:text-red-500 transition-all hover:scale-95"/>
                         </NextLink>
                     </NavbarItem>
                 </SignedIn>

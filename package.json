@@ -3,13 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --turbo",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
     "@clerk/nextjs": "^4.27.1",
+    "@heroicons/react": "^2.0.18",
     "@nextui-org/react": "^2.2.9",
     "framer-motion": "^10.16.4",
     "next": "14.0.2",
