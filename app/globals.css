@@ -5,3 +5,9 @@
 .text-balance {
     text-wrap: balance;
 }
+
+@layer base {
+    :root {
+        --color-primary: 272.88deg 95.68% 36.27%;
+    }
+}

@@ -1,5 +1,5 @@
-import getPetsByCategoryId from "@/app/category/[slug]/lib/getPetsByCategoryId";
 import { redirect } from 'next/navigation'
+import {getPetsByCategoryId} from "@/services/getPetsByCategoryId";
 
 async function Page({ params }: { params: { slug: string } }) {
 

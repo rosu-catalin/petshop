@@ -10,17 +10,24 @@ const config: Config = {
     ],
     theme: {
         extend: {
+            colors: {
+                primary: 'hsl(var(--color-primary) / <alpha-value>)',
+            },
             backgroundImage: {
                 'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
                 'gradient-conic':
                     'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
             },
             gridTemplateColumns: {
-                'pet-categories': 'repeat(auto-fill, minmax(300px, 1fr))'
+                'pet-categories': 'repeat(auto-fill, minmax(205px, 1fr))'
             }
         },
     },
     darkMode: 'class',
-    plugins: [nextui()],
+    plugins: [nextui({
+        themes: {
+
+        }
+    })],
 }
 export default config

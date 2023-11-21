@@ -14,7 +14,7 @@ import NextLink from 'next/link'
 import {usePathname} from "next/navigation";
 import {useState} from "react";
 import {SignedIn, SignedOut} from "@clerk/nextjs";
-import UserAvatar from "@/components/layout/user_avatar/user-avatar.component";
+import UserAvatar from "@/components/homepage/hero/UserAvatar";
 import {HeartIcon} from "@heroicons/react/24/solid";
 
 export default function Navigation() {
