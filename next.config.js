@@ -31,6 +31,12 @@ const nextConfig = {
                 hostname: 'images.unsplash.com',
                 port: '',
                 pathname: '**',
+            },
+            {
+                protocol: 'https',
+                hostname: 'dl5zpyw5k3jeb.cloudfront.net',
+                port: '',
+                pathname: '**',
             }
         ],
     }

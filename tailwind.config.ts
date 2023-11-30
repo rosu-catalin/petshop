@@ -24,10 +24,11 @@ const config: Config = {
         },
     },
     darkMode: 'class',
-    plugins: [nextui({
-        themes: {
-
-        }
-    })],
+    plugins: [
+        require('@tailwindcss/typography'),
+        nextui({
+            themes: {}
+        })
+    ],
 }
 export default config

@@ -1,15 +1,18 @@
-'use client'
+'use client';
 
-import {NextUIProvider} from '@nextui-org/react'
-import Navigation from "@/components/layout/navbar/navbar.component";
-import Footer from "@/components/layout/footer";
+import { NextUIProvider } from '@nextui-org/react';
+import { useRouter } from 'next/navigation';
+import Navigation from '@/components/layout/navbar/navbar.component';
+import Footer from '@/components/layout/footer';
 
-export function Providers({children}: { children: React.ReactNode }) {
+export function Providers({ children }: { children: React.ReactNode }) {
+    const router = useRouter();
+
     return (
-        <NextUIProvider>
-            <Navigation/>
+        <NextUIProvider navigate={router.push}>
+            <Navigation />
             {children}
-            <Footer/>
+            <Footer />
         </NextUIProvider>
-    )
+    );
 }

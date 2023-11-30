@@ -1,35 +1,23 @@
-import AvailableCard from "@/components/homepage/pets-available-for-adoption/AvailableCard";
+import { getPetsFilteredBy } from '@/services/get-pets-filtered-by';
+import AvailableCard from '@/components/homepage/pets-available-for-adoption/available-card';
 
-const PetsAvailableForAdoption = () => {
+const PetsAvailableForAdoption = async () => {
+    const pets = await getPetsFilteredBy({
+        limit: 4
+    });
+
     return (
         <div>
-            <h2 className='text-2xl sm:text-4xl font-bold text-gray-800 text-balance'>
+            <h2 className="text-balance text-2xl font-bold text-gray-800 sm:text-4xl">
                 Pets Available for Adoption
             </h2>
-            <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 mt-4'>
-                <AvailableCard pet={{
-                    name: 'Rex',
-                    image: 'https://images.unsplash.com/photo-1583512603805-3cc6b41f3edb?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8MTB8fHxlbnwwfHx8fHw%3D',
-                    age: 1
-                }}/>
-                <AvailableCard pet={{
-                    name: 'Rex',
-                    image: 'https://images.unsplash.com/photo-1537151625747-768eb6cf92b2?q=80&w=2568&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-                    age: 1
-                }}/>
-                <AvailableCard pet={{
-                    name: 'Rex',
-                    image: 'https://images.unsplash.com/photo-1596492784531-6e6eb5ea9993?q=80&w=3774&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-                    age: 1
-                }}/>
-                <AvailableCard pet={{
-                    name: 'Rex',
-                    image: 'https://images.unsplash.com/photo-1583512603805-3cc6b41f3edb?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8MTB8fHxlbnwwfHx8fHw%3D',
-                    age: 1
-                }}/>
+            <div className="mt-4 grid grid-cols-2 gap-2 md:grid-cols-3 lg:grid-cols-4">
+                {pets.map((pet) => (
+                    <AvailableCard key={pet.id} pet={pet} />
+                ))}
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default PetsAvailableForAdoption
+export default PetsAvailableForAdoption;
