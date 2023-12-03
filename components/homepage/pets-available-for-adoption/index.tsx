@@ -3,7 +3,7 @@ import AvailableCard from '@/components/homepage/pets-available-for-adoption/ava
 
 const PetsAvailableForAdoption = async () => {
     const pets = await getPetsFilteredBy({
-        limit: 4
+        randomLimit: 4
     });
 
     return (

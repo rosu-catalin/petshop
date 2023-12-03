@@ -18,9 +18,13 @@ type Pet = {
 // eslint-disable-next-line no-unused-vars
 type Filters = {
     categoryId?: string;
+    gender?: string;
     age?: number;
+    startAge?: number;
+    endAge?: number;
     breedId?: string;
     limit?: number;
+    randomLimit?: number;
 };
 
 // eslint-disable-next-line no-unused-vars
