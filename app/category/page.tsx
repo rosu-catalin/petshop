@@ -36,7 +36,6 @@ const Page = async ({
     });
 
     const entries = pets.slice(start, end);
-    console.log(pets.length, entries.length);
 
     const breeds = await getBreedsByCategory(selectedCategory);
 
@@ -80,7 +79,7 @@ const Page = async ({
                         </div>
                     </Suspense>
                 </div>
-                <CategoryPagination hasNextPage={end < entries.length} hasPrevPage={start > 0} />
+                <CategoryPagination dataLength={pets.length} />
             </MaxWidthWrapper>
         </>
     );

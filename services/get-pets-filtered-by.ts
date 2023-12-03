@@ -7,8 +7,6 @@ export async function getPetsFilteredBy(filters: Filters = {}) {
         }
     }
 
-    console.log('getPetsFilteredBy', url.href);
-
     const response = await fetch(url, {
         next: {
             revalidate: 60

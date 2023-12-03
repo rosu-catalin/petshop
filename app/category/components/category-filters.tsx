@@ -2,7 +2,6 @@
 
 import { Slider } from '@nextui-org/slider';
 import { useSearchParams } from 'next/navigation';
-import { Radio, RadioGroup } from '@nextui-org/radio';
 import { Checkbox, CheckboxGroup } from '@nextui-org/checkbox';
 import useUpdateUrl from '@/app/category/hooks/use-update-url';
 
@@ -22,21 +21,22 @@ const CategoryFilters = ({ breeds }: { breeds: Breed[] }) => {
 
     const handleAgeChange = (value: number[]) => {
         const [startAge, endAge] = value;
-        updateUrl({ startAge: startAge.toString(), endAge: endAge.toString() });
+        updateUrl({ startAge: startAge.toString(), endAge: endAge.toString(), page: '1' });
     };
 
-    const handleGenderChange = (gender: string) => {
-        updateUrl({ gender });
+    const handleGenderChange = (gender: string[]) => {
+        updateUrl({ gender: gender.join(','), page: '1' });
     };
 
     const handleBreedChange = (breedId: string[]) => {
-        updateUrl({ breedId: breedId.join(',') });
+        updateUrl({ breedId: breedId.join(','), page: '1' });
     };
 
     return (
         <>
             <Slider
                 label="Age Range"
+                classNames={{ label: 'text-default-700' }}
                 step={1}
                 minValue={1}
                 maxValue={20}
@@ -46,19 +46,36 @@ const CategoryFilters = ({ breeds }: { breeds: Breed[] }) => {
                 onChange={(value) => handleAgeChange(value as number[])}
                 className="max-w-md"
             />
-            <RadioGroup
+
+            {/*<Select*/}
+            {/*    label="Breed"*/}
+            {/*    placeholder="Select a breed"*/}
+            {/*    selectionMode="multiple"*/}
+            {/*    className="max-w-xs"*/}
+            {/*    defaultSelectedKeys={(searchParams.get('breedId') ?? '').split(',')}*/}
+            {/*    onSelectionChange={(keys) => handleBreedChange(keys)}*/}
+            {/*>*/}
+            {/*    {breeds.map((breed) => (*/}
+            {/*        <SelectItem key={breed.breedId} value={breed.breedId}>*/}
+            {/*            {breed.breedId}*/}
+            {/*        </SelectItem>*/}
+            {/*    ))}*/}
+            {/*</Select>*/}
+
+            <CheckboxGroup
                 label="Gender"
-                color="primary"
-                defaultValue={genderParam}
-                onValueChange={handleGenderChange}
+                classNames={{ label: 'text-default-700' }}
+                defaultValue={genderParam.split(',')}
+                onChange={(value) => handleGenderChange(value as string[])}
             >
-                <Radio value="male">Male</Radio>
-                <Radio value="female">Female</Radio>
-            </RadioGroup>
+                <Checkbox value="male">Male</Checkbox>
+                <Checkbox value="female">Female</Checkbox>
+            </CheckboxGroup>
 
             <CheckboxGroup
                 label="Breeds"
-                defaultValue={[]}
+                classNames={{ label: 'text-default-700' }}
+                defaultValue={(searchParams.get('breedId') ?? '').split(',')}
                 onChange={(value) => handleBreedChange(value as string[])}
             >
                 {breeds.map((breed) => (
