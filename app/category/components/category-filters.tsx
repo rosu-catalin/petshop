@@ -1,32 +1,24 @@
 'use client';
 
 import { Slider } from '@nextui-org/slider';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { Radio, RadioGroup } from '@nextui-org/radio';
-import { useCallback } from 'react';
 import { Checkbox, CheckboxGroup } from '@nextui-org/checkbox';
+import useUpdateUrl from '@/app/category/hooks/use-update-url';
+
+/*
+    TODO
+    - Separate the filters into their own components
+    - Fix the gender filter to accept both genders
+ */
 
 const CategoryFilters = ({ breeds }: { breeds: Breed[] }) => {
-    console.log(breeds);
-
-    const router = useRouter();
+    const updateUrl = useUpdateUrl();
     const searchParams = useSearchParams();
-    const pathname = usePathname();
 
     const startAge = searchParams.get('startAge') ?? '1';
     const endAge = searchParams.get('endAge') ?? '20';
     const genderParam = searchParams.get('gender') ?? 'male';
-
-    const updateUrl = useCallback(
-        (updatedParams: { [key: string]: string }) => {
-            const params = new URLSearchParams(searchParams);
-            Object.entries(updatedParams).forEach(([key, value]) => {
-                params.set(key, value);
-            });
-            router.push(`${pathname}?${params.toString()}`, { scroll: false });
-        },
-        [router, pathname, searchParams]
-    );
 
     const handleAgeChange = (value: number[]) => {
         const [startAge, endAge] = value;

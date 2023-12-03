@@ -6,6 +6,7 @@ import { Card, CardBody, CardHeader } from '@nextui-org/card';
 import Image from 'next/image';
 import CategoryFilters from '@/app/category/components/category-filters';
 import { getBreedsByCategory } from '@/services/get-breeds-by-category';
+import CategoryPagination from '@/app/category/components/category-pagination';
 
 const Page = async ({
     searchParams
@@ -19,6 +20,12 @@ const Page = async ({
     const endAge = (searchParams.endAge || undefined) as unknown as number;
     const gender = (searchParams.gender || undefined) as unknown as string;
 
+    const page = searchParams['page'] ?? '1';
+    const per_page = searchParams['per_page'] ?? '9';
+
+    const start = (Number(page) - 1) * Number(per_page);
+    const end = start + Number(per_page);
+
     const pets = await getPetsFilteredBy({
         categoryId: selectedCategory,
         breedId: selectedBreed,
@@ -28,13 +35,10 @@ const Page = async ({
         endAge
     });
 
-    const breeds = await getBreedsByCategory(selectedCategory);
+    const entries = pets.slice(start, end);
+    console.log(pets.length, entries.length);
 
-    console.log({
-        selectedCategory,
-        selectedBreed,
-        age
-    });
+    const breeds = await getBreedsByCategory(selectedCategory);
 
     return (
         <>
@@ -53,7 +57,8 @@ const Page = async ({
                     </div>
                     <Suspense fallback={<p>Loading...</p>}>
                         <div className={`grid grid-cols-2 gap-2 xl:grid-cols-3`}>
-                            {pets.map((pet) => (
+                            {entries.length === 0 && <p>No pets found</p>}
+                            {entries.map((pet) => (
                                 <Card className="p-1" key={pet.id}>
                                     <CardHeader className="flex-col items-start">
                                         <Image
@@ -75,6 +80,7 @@ const Page = async ({
                         </div>
                     </Suspense>
                 </div>
+                <CategoryPagination hasNextPage={end < entries.length} hasPrevPage={start > 0} />
             </MaxWidthWrapper>
         </>
     );
