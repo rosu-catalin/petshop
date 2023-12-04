@@ -8,7 +8,6 @@ import useUpdateUrl from '@/app/category/hooks/use-update-url';
 /*
     TODO
     - Separate the filters into their own components
-    - Fix the gender filter to accept both genders
  */
 
 const CategoryFilters = ({ breeds }: { breeds: Breed[] }) => {
@@ -46,21 +45,6 @@ const CategoryFilters = ({ breeds }: { breeds: Breed[] }) => {
                 onChange={(value) => handleAgeChange(value as number[])}
                 className="max-w-md"
             />
-
-            {/*<Select*/}
-            {/*    label="Breed"*/}
-            {/*    placeholder="Select a breed"*/}
-            {/*    selectionMode="multiple"*/}
-            {/*    className="max-w-xs"*/}
-            {/*    defaultSelectedKeys={(searchParams.get('breedId') ?? '').split(',')}*/}
-            {/*    onSelectionChange={(keys) => handleBreedChange(keys)}*/}
-            {/*>*/}
-            {/*    {breeds.map((breed) => (*/}
-            {/*        <SelectItem key={breed.breedId} value={breed.breedId}>*/}
-            {/*            {breed.breedId}*/}
-            {/*        </SelectItem>*/}
-            {/*    ))}*/}
-            {/*</Select>*/}
 
             <CheckboxGroup
                 label="Gender"
