@@ -7,6 +7,7 @@ import Image from 'next/image';
 import CategoryFilters from '@/app/category/components/category-filters';
 import { getBreedsByCategory } from '@/services/get-breeds-by-category';
 import CategoryPagination from '@/app/category/components/category-pagination';
+import Link from 'next/link';
 
 const Page = async ({
     searchParams
@@ -58,23 +59,25 @@ const Page = async ({
                         <div className={`grid grid-cols-2 gap-2 xl:grid-cols-3`}>
                             {entries.length === 0 && <p>No pets found</p>}
                             {entries.map((pet) => (
-                                <Card className="p-1" key={pet.id}>
-                                    <CardHeader className="flex-col items-start">
-                                        <Image
-                                            src={pet.image}
-                                            alt={`${pet.name} is available for adoption`}
-                                            className="h-[250px] w-full rounded-md object-cover object-center"
-                                            width={375}
-                                            height={250}
-                                        />
-                                    </CardHeader>
-                                    <CardBody className="overflow-visible py-2">
-                                        <div className="flex items-center justify-between">
-                                            <p className="font-bold text-black">{pet.name}</p>
-                                            <p>{pet.age} years</p>
-                                        </div>
-                                    </CardBody>
-                                </Card>
+                                <Link href={`/pet/${pet.id}`} key={pet.id}>
+                                    <Card className="p-1">
+                                        <CardHeader className="flex-col items-start">
+                                            <Image
+                                                src={pet.image}
+                                                alt={`${pet.name} is available for adoption`}
+                                                className="h-[250px] w-full rounded-md object-cover object-center"
+                                                width={375}
+                                                height={250}
+                                            />
+                                        </CardHeader>
+                                        <CardBody className="overflow-visible py-2">
+                                            <div className="flex items-center justify-between">
+                                                <p className="font-bold text-black">{pet.name}</p>
+                                                <p>{pet.age} years</p>
+                                            </div>
+                                        </CardBody>
+                                    </Card>
+                                </Link>
                             ))}
                         </div>
                     </Suspense>
