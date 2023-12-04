@@ -1,19 +1,43 @@
-import { useRouter, usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useCallback } from 'react';
+
+type UpdateUrlParams = {
+    [key: string]: string;
+};
 
 const useUpdateUrl = () => {
     const router = useRouter();
     const pathname = usePathname();
 
-    const updateUrl = useCallback(
-        (updatedParams: { [key: string]: string }) => {
-            const searchParams = new URLSearchParams(window.location.search);
-            Object.entries(updatedParams).forEach(([key, value]) => {
+    const buildUrl = useCallback(
+        (params: UpdateUrlParams) => {
+            const searchParams = new URLSearchParams();
+            for (const [key, value] of Object.entries(params)) {
                 searchParams.set(key, value);
-            });
-            router.push(`${pathname}?${searchParams.toString()}`, { scroll: false });
+            }
+            return `${pathname}?${searchParams.toString()}`;
         },
-        [router, pathname]
+        [pathname]
+    );
+
+    const updateUrl = useCallback(
+        (updatedParams: UpdateUrlParams, isCategoryChange = false) => {
+            const currentParams = new URLSearchParams(window.location.search);
+            let newParams;
+
+            if (isCategoryChange) {
+                newParams = { category: updatedParams.category };
+            } else {
+                newParams = Object.fromEntries(currentParams.entries());
+                for (const [key, value] of Object.entries(updatedParams)) {
+                    newParams[key] = value;
+                }
+            }
+
+            const newUrl = buildUrl(newParams);
+            router.push(newUrl, { scroll: false });
+        },
+        [buildUrl, router]
     );
 
     return updateUrl;

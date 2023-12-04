@@ -27,7 +27,7 @@ export default function Navigation() {
             isBordered
             isMenuOpen={isMenuOpen}
             onMenuOpenChange={setIsMenuOpen}
-            maxWidth="xl"
+            maxWidth="2xl"
             height="5rem"
             isBlurred={true}
         >

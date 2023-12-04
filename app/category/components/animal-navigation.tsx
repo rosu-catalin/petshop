@@ -3,8 +3,8 @@
 import { Select, SelectItem } from '@nextui-org/react';
 import { SVGProps } from 'react';
 import { PET_CATEGORIES } from '@/config';
-import useUpdateUrl from '@/app/category/hooks/use-update-url';
 import { useSearchParams } from 'next/navigation';
+import useUpdateUrl from '@/app/category/hooks/use-update-url';
 
 const AnimalNavigation = () => {
     const updateUrl = useUpdateUrl();
@@ -27,7 +27,7 @@ const AnimalNavigation = () => {
                 className="max-w-[250px]"
                 color="primary"
                 onChange={({ target: { value } }) => {
-                    updateUrl({ category: value, page: '1' });
+                    updateUrl({ category: value, page: '1' }, true);
                 }}
             >
                 {PET_CATEGORIES.map((animal) => (

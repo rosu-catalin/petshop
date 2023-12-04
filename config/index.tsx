@@ -1,4 +1,4 @@
-import { Bird, Cat, Dog, PawPrint } from 'lucide-react';
+import { Bird, Cat, Dog, Fish, PawPrint, Turtle } from 'lucide-react';
 
 export const PET_CATEGORIES = [
     {
@@ -34,6 +34,46 @@ export const PET_CATEGORIES = [
         ),
         navIcon: (
             <Bird
+                size={32}
+                strokeWidth={1.3}
+                color="hsl(var(--color-primary))"
+                aria-hidden={true}
+            />
+        )
+    },
+    {
+        label: 'Fishes',
+        id: 'fishes' as const,
+        icon: (
+            <Fish
+                size={64}
+                strokeWidth={1.3}
+                color="hsl(var(--color-primary))"
+                aria-hidden={true}
+            />
+        ),
+        navIcon: (
+            <Fish
+                size={32}
+                strokeWidth={1.3}
+                color="hsl(var(--color-primary))"
+                aria-hidden={true}
+            />
+        )
+    },
+    {
+        label: 'Reptiles',
+        id: 'reptiles' as const,
+        icon: (
+            <Turtle
+                size={64}
+                strokeWidth={1.3}
+                color="hsl(var(--color-primary))"
+                aria-hidden={true}
+            />
+        ),
+        navIcon: (
+            <Turtle
                 size={32}
                 strokeWidth={1.3}
                 color="hsl(var(--color-primary))"

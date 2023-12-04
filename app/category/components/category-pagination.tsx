@@ -9,7 +9,7 @@ const CategoryPagination = ({ dataLength }: { dataLength: number }) => {
     const searchParams = useSearchParams();
 
     const page = searchParams.get('page') ?? '1';
-    const per_page = searchParams.get('per_page') ?? '9';
+    const per_page = searchParams.get('per_page') ?? '12';
 
     return (
         <Pagination

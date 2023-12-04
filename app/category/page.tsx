@@ -22,7 +22,7 @@ const Page = async ({
     const gender = (searchParams.gender || undefined) as unknown as string;
 
     const page = searchParams['page'] ?? '1';
-    const per_page = searchParams['per_page'] ?? '9';
+    const per_page = searchParams['per_page'] ?? '12';
 
     const start = (Number(page) - 1) * Number(per_page);
     const end = start + Number(per_page);
@@ -48,7 +48,7 @@ const Page = async ({
                 </MaxWidthWrapper>
             </div>
             <MaxWidthWrapper className="my-4">
-                <div className="grid items-start gap-3 lg:grid-cols-[350px_1fr]">
+                <div className="grid items-start gap-3 lg:grid-cols-[325px_1fr]">
                     <div className="rounded-md bg-gray-100 p-4">
                         <h3 className="text-2xl font-bold">Filters</h3>
                         <div className="mt-4 grid gap-4">
@@ -56,7 +56,7 @@ const Page = async ({
                         </div>
                     </div>
                     <Suspense fallback={<p>Loading...</p>}>
-                        <div className={`grid grid-cols-2 gap-2 xl:grid-cols-3`}>
+                        <div className={`grid grid-cols-2 gap-2 xl:grid-cols-4`}>
                             {entries.length === 0 && <p>No pets found</p>}
                             {entries.map((pet) => (
                                 <Link href={`/pet/${pet.id}`} key={pet.id}>
@@ -65,7 +65,7 @@ const Page = async ({
                                             <Image
                                                 src={pet.image}
                                                 alt={`${pet.name} is available for adoption`}
-                                                className="h-[250px] w-full rounded-md object-cover object-center"
+                                                className="h-[200px] w-full rounded-md object-cover object-center md:h-[250px]"
                                                 width={375}
                                                 height={250}
                                             />

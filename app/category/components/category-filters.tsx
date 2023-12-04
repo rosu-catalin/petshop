@@ -5,18 +5,14 @@ import { useSearchParams } from 'next/navigation';
 import { Checkbox, CheckboxGroup } from '@nextui-org/checkbox';
 import useUpdateUrl from '@/app/category/hooks/use-update-url';
 
-/*
-    TODO
-    - Separate the filters into their own components
- */
-
 const CategoryFilters = ({ breeds }: { breeds: Breed[] }) => {
     const updateUrl = useUpdateUrl();
     const searchParams = useSearchParams();
 
     const startAge = searchParams.get('startAge') ?? '1';
     const endAge = searchParams.get('endAge') ?? '20';
-    const genderParam = searchParams.get('gender') ?? 'male';
+    const genderParam = searchParams.get('gender') ?? 'male,female';
+    const breedParam = (searchParams.get('breedId') ?? '').split(',');
 
     const handleAgeChange = (value: number[]) => {
         const [startAge, endAge] = value;
@@ -39,6 +35,7 @@ const CategoryFilters = ({ breeds }: { breeds: Breed[] }) => {
                 step={1}
                 minValue={1}
                 maxValue={20}
+                value={[parseInt(startAge), parseInt(endAge)]}
                 defaultValue={[parseInt(startAge), parseInt(endAge)]}
                 formatOptions={{ style: 'unit', unit: 'year' }}
                 getValue={(value) => `${value.toString().replace(',', '-')} years`}
@@ -50,6 +47,7 @@ const CategoryFilters = ({ breeds }: { breeds: Breed[] }) => {
                 label="Gender"
                 classNames={{ label: 'text-default-700' }}
                 defaultValue={genderParam.split(',')}
+                value={genderParam.split(',')}
                 onChange={(value) => handleGenderChange(value as string[])}
             >
                 <Checkbox value="male">Male</Checkbox>
@@ -59,12 +57,15 @@ const CategoryFilters = ({ breeds }: { breeds: Breed[] }) => {
             <CheckboxGroup
                 label="Breeds"
                 classNames={{ label: 'text-default-700' }}
-                defaultValue={(searchParams.get('breedId') ?? '').split(',')}
+                defaultValue={breedParam}
+                value={breedParam}
                 onChange={(value) => handleBreedChange(value as string[])}
             >
                 {breeds.map((breed) => (
                     <Checkbox value={breed.breedId} key={breed.breedId}>
-                        {breed.breedId}
+                        {breed.breedId
+                            .toLowerCase()
+                            .replace(/\b[a-z]/g, (letter) => letter.toUpperCase())}
                     </Checkbox>
                 ))}
             </CheckboxGroup>
