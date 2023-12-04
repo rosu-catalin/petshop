@@ -6,6 +6,9 @@ export const PET_CATEGORIES = [
         id: 'dogs' as const,
         icon: (
             <Dog size={64} strokeWidth={1.3} color="hsl(var(--color-primary))" aria-hidden={true} />
+        ),
+        navIcon: (
+            <Dog size={32} strokeWidth={1.3} color="hsl(var(--color-primary))" aria-hidden={true} />
         )
     },
     {
@@ -13,6 +16,9 @@ export const PET_CATEGORIES = [
         id: 'cats' as const,
         icon: (
             <Cat size={64} strokeWidth={1.3} color="hsl(var(--color-primary))" aria-hidden={true} />
+        ),
+        navIcon: (
+            <Cat size={32} strokeWidth={1.3} color="hsl(var(--color-primary))" aria-hidden={true} />
         )
     },
     {
@@ -25,6 +31,14 @@ export const PET_CATEGORIES = [
                 color="hsl(var(--color-primary))"
                 aria-hidden={true}
             />
+        ),
+        navIcon: (
+            <Bird
+                size={32}
+                strokeWidth={1.3}
+                color="hsl(var(--color-primary))"
+                aria-hidden={true}
+            />
         )
     },
     {
@@ -33,6 +47,14 @@ export const PET_CATEGORIES = [
         icon: (
             <PawPrint
                 size={64}
+                strokeWidth={1.3}
+                color="hsl(var(--color-primary))"
+                aria-hidden={true}
+            />
+        ),
+        navIcon: (
+            <PawPrint
+                size={32}
                 strokeWidth={1.3}
                 color="hsl(var(--color-primary))"
                 aria-hidden={true}

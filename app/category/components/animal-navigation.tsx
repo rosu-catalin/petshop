@@ -3,17 +3,32 @@
 import { Select, SelectItem } from '@nextui-org/react';
 import { SVGProps } from 'react';
 import { PET_CATEGORIES } from '@/config';
+import useUpdateUrl from '@/app/category/hooks/use-update-url';
+import { useSearchParams } from 'next/navigation';
 
 const AnimalNavigation = () => {
+    const updateUrl = useUpdateUrl();
+    const searchParams = useSearchParams();
+
+    const selectedCategory = searchParams.get('category') ?? 'dogs';
+
+    // Get icon for selected category from PET_CATEGORIES
+    const selectedCategoryIcon = PET_CATEGORIES.find((category) => category.id === selectedCategory)
+        ?.navIcon;
+
     return (
         <div>
             <Select
                 label="Favorite Animal"
                 placeholder="Select an animal"
-                startContent={<PetIcon />}
-                defaultSelectedKeys={['dogs']}
+                startContent={selectedCategoryIcon}
+                defaultSelectedKeys={[selectedCategory]}
+                selectedKeys={[selectedCategory]}
                 className="max-w-[250px]"
                 color="primary"
+                onChange={({ target: { value } }) => {
+                    updateUrl({ category: value, page: '1' });
+                }}
             >
                 {PET_CATEGORIES.map((animal) => (
                     <SelectItem key={animal.id} value={animal.label}>
