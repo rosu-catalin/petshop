@@ -4,6 +4,8 @@ import { Slider } from '@nextui-org/slider';
 import { useSearchParams } from 'next/navigation';
 import { Checkbox, CheckboxGroup } from '@nextui-org/checkbox';
 import useUpdateUrl from '@/app/category/hooks/use-update-url';
+import { useDebouncedCallback } from 'use-debounce';
+import { useState } from 'react';
 
 const CategoryFilters = ({ breeds }: { breeds: Breed[] }) => {
     const updateUrl = useUpdateUrl();
@@ -14,10 +16,14 @@ const CategoryFilters = ({ breeds }: { breeds: Breed[] }) => {
     const genderParam = searchParams.get('gender') ?? 'male,female';
     const breedParam = (searchParams.get('breedId') ?? '').split(',');
 
+    const [ages, setAges] = useState<number[]>([parseInt(startAge), parseInt(endAge)]);
+
     const handleAgeChange = (value: number[]) => {
         const [startAge, endAge] = value;
         updateUrl({ startAge: startAge.toString(), endAge: endAge.toString(), page: '1' });
     };
+
+    const debouncedHandleAgeChange = useDebouncedCallback(handleAgeChange, 250);
 
     const handleGenderChange = (gender: string[]) => {
         updateUrl({ gender: gender.join(','), page: '1' });
@@ -29,17 +35,21 @@ const CategoryFilters = ({ breeds }: { breeds: Breed[] }) => {
 
     return (
         <>
+            {ages.toString().split(',').join('-')}
             <Slider
                 label="Age Range"
                 classNames={{ label: 'text-default-700' }}
                 step={1}
                 minValue={1}
                 maxValue={20}
-                value={[parseInt(startAge), parseInt(endAge)]}
-                defaultValue={[parseInt(startAge), parseInt(endAge)]}
+                value={ages}
+                defaultValue={ages}
                 formatOptions={{ style: 'unit', unit: 'year' }}
                 getValue={(value) => `${value.toString().replace(',', '-')} years`}
-                onChange={(value) => handleAgeChange(value as number[])}
+                onChange={(value) => {
+                    setAges(value as number[]);
+                    debouncedHandleAgeChange(value as number[]);
+                }}
                 className="max-w-md"
             />
 
