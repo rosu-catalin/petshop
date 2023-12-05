@@ -24,6 +24,7 @@ export default function Navigation() {
 
     return (
         <Navbar
+            position="static"
             isBordered
             isMenuOpen={isMenuOpen}
             onMenuOpenChange={setIsMenuOpen}

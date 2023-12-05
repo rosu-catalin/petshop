@@ -35,7 +35,7 @@ const useUpdateUrl = () => {
             }
 
             const newUrl = buildUrl(newParams);
-            router.push(newUrl, { scroll: false });
+            router.push(newUrl, { scroll: true });
         },
         [buildUrl, router]
     );

@@ -1,13 +1,16 @@
 import MaxWidthWrapper from '@/components/max-width-wrapper';
+import { Github } from 'lucide-react';
+import Link from 'next/link';
+import { PET_CATEGORIES } from '@/config';
 
 const Footer = () => {
     return (
-        <footer>
-            <MaxWidthWrapper className="my-12">
-                <div className="grid grid-cols-1 items-center gap-5 text-center sm:text-start md:grid-cols-3">
-                    <div>
+        <footer className="w-full bg-[#1f0832]">
+            <MaxWidthWrapper className="py-10">
+                <div className="grid grid-cols-2 gap-6 md:grid-cols-4 lg:grid-cols-5">
+                    <div className="col-span-full lg:col-span-1">
                         <a
-                            className="flex-none text-xl font-semibold text-black dark:text-white dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                            className="flex-none text-xl font-semibold text-white"
                             href="#"
                             aria-label="Brand"
                         >
@@ -15,48 +18,87 @@ const Footer = () => {
                         </a>
                     </div>
 
-                    <ul className="text-center">
-                        <li className="relative inline-block pe-8 before:absolute before:end-3 before:top-1/2 before:-translate-y-1/2 before:text-gray-300 before:content-['/'] last:pe-0 last-of-type:before:hidden dark:before:text-gray-600">
+                    <div className="col-span-1">
+                        <h4 className="font-semibold text-gray-100">Adopt or get Involved</h4>
+
+                        <div className="mt-3 grid space-y-3">
+                            {PET_CATEGORIES.map((category) => {
+                                if (category.id !== 'reptiles' && category.id !== 'fishes') {
+                                    return (
+                                        <Link
+                                            key={category.id}
+                                            className="inline-flex gap-x-2 text-gray-400 hover:text-gray-200"
+                                            href={`/category?category=${category.id}`}
+                                        >
+                                            {category.label}
+                                        </Link>
+                                    );
+                                }
+                            })}
+                        </div>
+                    </div>
+
+                    <div className="col-span-1">
+                        <h4 className="font-semibold text-gray-100">Company</h4>
+
+                        <div className="mt-3 grid space-y-3">
                             <a
-                                className="inline-flex gap-x-2 text-sm text-gray-500 hover:text-gray-800 dark:text-gray-500 dark:hover:text-gray-200 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                                className="inline-flex gap-x-2 text-gray-400 hover:text-gray-200"
                                 href="#"
                             >
-                                About
+                                About us
                             </a>
-                        </li>
-                        <li className="relative inline-block pe-8 before:absolute before:end-3 before:top-1/2 before:-translate-y-1/2 before:text-gray-300 before:content-['/'] last:pe-0 last-of-type:before:hidden dark:before:text-gray-600">
                             <a
-                                className="inline-flex gap-x-2 text-sm text-gray-500 hover:text-gray-800 dark:text-gray-500 dark:hover:text-gray-200 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
-                                href="#"
-                            >
-                                Find Pets
-                            </a>
-                        </li>
-                        <li className="relative inline-block pe-8 before:absolute before:end-3 before:top-1/2 before:-translate-y-1/2 before:text-gray-300 before:content-['/'] last:pe-0 last-of-type:before:hidden dark:before:text-gray-600">
-                            <a
-                                className="inline-flex gap-x-2 text-sm text-gray-500 hover:text-gray-800 dark:text-gray-500 dark:hover:text-gray-200 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                                className="inline-flex gap-x-2 text-gray-400 hover:text-gray-200"
                                 href="#"
                             >
                                 Contact Us
                             </a>
-                        </li>
-                    </ul>
+                        </div>
+                    </div>
 
-                    <div className="space-x-2 md:text-end">
+                    <div className="col-span-2">
+                        <h4 className="font-semibold text-gray-100">PetHub Newsletter</h4>
+
+                        <form>
+                            <div className="mt-4 flex flex-col items-center gap-2 rounded-lg bg-white p-2 sm:flex-row sm:gap-3">
+                                <div className="w-full">
+                                    <label htmlFor="hero-input" className="sr-only">
+                                        Search
+                                    </label>
+                                    <input
+                                        type="text"
+                                        id="hero-input"
+                                        name="hero-input"
+                                        className="block w-full rounded-lg border-transparent px-4 py-3 text-sm focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50"
+                                        placeholder="Enter your email"
+                                    />
+                                </div>
+                                <a
+                                    className="inline-flex w-full items-center justify-center gap-x-2 whitespace-nowrap rounded-lg border border-transparent bg-blue-600 p-3 text-sm font-semibold text-white hover:bg-blue-700 disabled:pointer-events-none disabled:opacity-50 sm:w-auto"
+                                    href="#"
+                                >
+                                    Subscribe
+                                </a>
+                            </div>
+                            <p className="mt-3 text-sm text-gray-400">
+                                Get the latest news and updates.
+                            </p>
+                        </form>
+                    </div>
+                </div>
+                <div className="mt-5 grid gap-y-2 sm:mt-12 sm:flex sm:items-center sm:justify-between sm:gap-y-0">
+                    <div className="flex items-center justify-between">
+                        <p className="text-sm text-gray-400">
+                            © 2023 PetHub. All rights reserved.
+                        </p>
+                    </div>
+                    <div>
                         <a
-                            className="inline-flex h-8 w-8 items-center justify-center gap-x-2 rounded-full border border-transparent text-sm font-semibold text-gray-500 hover:bg-gray-50 disabled:pointer-events-none disabled:opacity-50 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
-                            href="#"
+                            className="inline-flex h-10 w-10 items-center justify-center gap-x-2 rounded-lg border border-transparent text-sm font-semibold text-white hover:bg-white/10 focus:outline-none focus:ring-1 focus:ring-gray-600 disabled:pointer-events-none disabled:opacity-50"
+                            href="https://github.com/rosu-catalin/petshop"
                         >
-                            <svg
-                                className="h-3.5 w-3.5 flex-shrink-0"
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="16"
-                                height="16"
-                                fill="currentColor"
-                                viewBox="0 0 16 16"
-                            >
-                                <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z" />
-                            </svg>
+                            <Github />
                         </a>
                     </div>
                 </div>
@@ -65,4 +107,4 @@ const Footer = () => {
     );
 };
 
-export default Footer
+export default Footer;
