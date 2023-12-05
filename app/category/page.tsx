@@ -61,7 +61,7 @@ const Page = async ({
                             <h1 className="text-2xl font-bold md:text-3xl lg:text-4xl">
                                 {selectedCategory.charAt(0).toUpperCase() +
                                     selectedCategory.slice(1)}{' '}
-                                for Adoption ({pets.length})
+                                ({pets.length} available)
                             </h1>
                             <SortBy />
                         </div>
