@@ -20,6 +20,7 @@ const GenderFilter = () => {
         <CheckboxGroup
             label="Gender"
             classNames={{ label: 'text-default-700' }}
+            value={genderParam.split(',')}
             defaultValue={genderParam.split(',')}
             onChange={(value) => handleGenderChange(value as string[])}
         >
