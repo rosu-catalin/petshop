@@ -7,21 +7,20 @@ import { useSearchParams } from 'next/navigation';
 const GenderFilter = () => {
     const updateUrl = useUpdateUrl();
     const searchParams = useSearchParams();
-    const genderParam = searchParams.get('gender') ?? 'male,female';
+
+    const genderParam = (searchParams.get('gender') ?? '').split(',').filter(Boolean);
 
     const handleGenderChange = (gender: string[]) => {
-        const newGenderParam = gender.map(encodeURIComponent).join(',');
-        updateUrl({
-            gender: newGenderParam
-        });
+        const newGenderParam = gender.join(',');
+        updateUrl({ gender: newGenderParam, page: '1' });
     };
 
     return (
         <CheckboxGroup
             label="Gender"
             classNames={{ label: 'text-default-700' }}
-            value={genderParam.split(',')}
-            defaultValue={genderParam.split(',')}
+            value={genderParam}
+            defaultValue={genderParam}
             onChange={(value) => handleGenderChange(value as string[])}
         >
             <Checkbox value="male">Male</Checkbox>
