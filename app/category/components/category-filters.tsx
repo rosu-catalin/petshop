@@ -35,7 +35,6 @@ const CategoryFilters = ({ breeds }: { breeds: Breed[] }) => {
 
     return (
         <>
-            {ages.toString().split(',').join('-')}
             <Slider
                 label="Age Range"
                 classNames={{ label: 'text-default-700' }}
