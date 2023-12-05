@@ -1,17 +1,15 @@
-'use client';
-
 import { Checkbox, CheckboxGroup } from '@nextui-org/checkbox';
 import { useSearchParams } from 'next/navigation';
 import useUpdateUrl from '@/app/category/hooks/use-update-url';
 
 const BreedFilter = ({ breeds }: { breeds: Breed[] }) => {
     const updateUrl = useUpdateUrl();
-
     const searchParams = useSearchParams();
-    const breedParam = (searchParams.get('breedId') ?? '').split(',');
+    const breedParam = (searchParams.get('breedId') ?? '').split(',').filter(Boolean);
 
     const handleBreedChange = (breedId: string[]) => {
-        updateUrl({ breedId: breedId.join(','), page: '1' });
+        const breedParamString = breedId.join(',');
+        updateUrl({ breedId: breedParamString, page: '1' });
     };
 
     return (
