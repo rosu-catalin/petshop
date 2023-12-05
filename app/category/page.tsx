@@ -8,7 +8,6 @@ import CategoryFilters from '@/app/category/components/category-filters';
 import { getBreedsByCategory } from '@/services/get-breeds-by-category';
 import CategoryPagination from '@/app/category/components/category-pagination';
 import Link from 'next/link';
-import SortBy from '@/app/category/components/sort-by';
 
 const Page = async ({
     searchParams
@@ -63,7 +62,6 @@ const Page = async ({
                                     selectedCategory.slice(1)}{' '}
                                 ({pets.length} available)
                             </h1>
-                            <SortBy />
                         </div>
                         <Suspense fallback={<p>Loading...</p>}>
                             <div className="grid-cols-pets grid gap-4">
