@@ -6,6 +6,7 @@ import CategoryFilters from '@/app/category/components/category-filters';
 import { getBreedsByCategory } from '@/services/get-breeds-by-category';
 import CategoryPagination from '@/app/category/components/category-pagination';
 import AnimalCard from '@/app/category/components/animal-card';
+import SkeletonAnimalCards from '@/app/category/components/skeleton-animal-cards';
 
 const Page = async ({
     searchParams
@@ -61,8 +62,8 @@ const Page = async ({
                                 ({pets.length} available)
                             </h1>
                         </div>
-                        <Suspense fallback={<p>Loading...</p>}>
-                            <div className="grid grid-cols-pets gap-4">
+                        <Suspense fallback={<SkeletonAnimalCards />}>
+                            <div className="grid grid-cols-2 gap-4 md:grid-cols-pets">
                                 {entries.length === 0 && <p>No pets found</p>}
                                 {entries.map((pet) => (
                                     <AnimalCard pet={pet} key={pet.id} />

@@ -9,7 +9,7 @@ export async function getPetsFilteredBy(filters: Filters = {}) {
 
     const response = await fetch(url, {
         next: {
-            revalidate: 60
+            revalidate: 120
         }
     });
 
