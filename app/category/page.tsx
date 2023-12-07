@@ -2,12 +2,10 @@ import MaxWidthWrapper from '@/components/max-width-wrapper';
 import { getPetsFilteredBy } from '@/services/get-pets-filtered-by';
 import AnimalNavigation from '@/app/category/components/animal-navigation';
 import { Suspense } from 'react';
-import { Card, CardBody, CardHeader } from '@nextui-org/card';
-import Image from 'next/image';
 import CategoryFilters from '@/app/category/components/category-filters';
 import { getBreedsByCategory } from '@/services/get-breeds-by-category';
 import CategoryPagination from '@/app/category/components/category-pagination';
-import Link from 'next/link';
+import AnimalCard from '@/app/category/components/animal-card';
 
 const Page = async ({
     searchParams
@@ -64,30 +62,10 @@ const Page = async ({
                             </h1>
                         </div>
                         <Suspense fallback={<p>Loading...</p>}>
-                            <div className="grid-cols-pets grid gap-4">
+                            <div className="grid grid-cols-pets gap-4">
                                 {entries.length === 0 && <p>No pets found</p>}
                                 {entries.map((pet) => (
-                                    <Link href={`/pet/${pet.id}`} key={pet.id}>
-                                        <Card className="p-1">
-                                            <CardHeader className="flex-col items-start">
-                                                <Image
-                                                    src={pet.image}
-                                                    alt={`${pet.name} is available for adoption`}
-                                                    className="h-[200px] w-full rounded-md object-cover object-center md:h-[250px]"
-                                                    width={375}
-                                                    height={250}
-                                                />
-                                            </CardHeader>
-                                            <CardBody className="overflow-visible py-2">
-                                                <div className="flex items-center justify-between">
-                                                    <p className="font-bold text-black">
-                                                        {pet.name}
-                                                    </p>
-                                                    <p>{pet.age} years</p>
-                                                </div>
-                                            </CardBody>
-                                        </Card>
-                                    </Link>
+                                    <AnimalCard pet={pet} key={pet.id} />
                                 ))}
                             </div>
                         </Suspense>
