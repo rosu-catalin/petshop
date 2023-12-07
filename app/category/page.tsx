@@ -63,7 +63,7 @@ const Page = async ({
                             </h1>
                         </div>
                         <Suspense fallback={<SkeletonAnimalCards />}>
-                            <div className="grid grid-cols-2 gap-4 md:grid-cols-pets">
+                            <div className="grid grid-cols-2 gap-2 md:grid-cols-pets md:gap-4">
                                 {entries.length === 0 && <p>No pets found</p>}
                                 {entries.map((pet) => (
                                     <AnimalCard pet={pet} key={pet.id} />

@@ -7,7 +7,7 @@ import { Chip } from '@nextui-org/chip';
 import { firstLetterUppercase } from '@/lib/utils';
 import { Button } from '@nextui-org/react';
 import { Heart } from 'lucide-react';
-import { SignedIn } from '@clerk/nextjs';
+import { SignedIn, useAuth } from '@clerk/nextjs';
 
 const shimmer = (w: number, h: number) => `
 <svg width="${w}" height="${h}" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -26,9 +26,44 @@ const shimmer = (w: number, h: number) => `
 const toBase64 = (str: string) =>
     typeof window === 'undefined' ? Buffer.from(str).toString('base64') : window.btoa(str);
 
-const AnimalCard = ({ pet: { id, image, name, gender, breedId: breed } }: { pet: Pet }) => {
+const AnimalCard = async ({ pet }: { pet: Pet }) => {
+    const { id, image, name, gender, breedId: breed } = pet;
+
+    const { userId } = useAuth();
+
     const replaceImageWidthInUrlQuery = (url: string) => {
         return url.replace('width=1080', 'width=400');
+    };
+
+    const handleAddToFavorites = async (id: string) => {
+        // const API_URL = `https://animals-adoption.up.railway.app/api/favorites/add`;
+        const USER_ID = userId;
+
+        try {
+            console.log({
+                userId: USER_ID,
+                animalId: id
+            });
+
+            // const res = await fetch(API_URL, {
+            //     method: 'POST',
+            //     headers: {
+            //         'Content-Type': 'application/json'
+            //     },
+            //     mode: 'no-cors',
+            //     body: JSON.stringify({
+            //         userId: USER_ID,
+            //         animalId: id
+            //     })
+            // });
+
+            console.log('Add to favorites', id, USER_ID);
+            // const data = await res.text();
+
+            // console.log(data);
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     return (
@@ -65,6 +100,7 @@ const AnimalCard = ({ pet: { id, image, name, gender, breedId: breed } }: { pet:
                     aria-label="Add to favorites"
                     radius="full"
                     isIconOnly
+                    onClick={() => handleAddToFavorites(id)}
                 >
                     <Heart size={20} />
                 </Button>
