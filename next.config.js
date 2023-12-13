@@ -6,40 +6,46 @@ const nextConfig = {
                 protocol: 'https',
                 hostname: 'nextui.org',
                 port: '',
-                pathname: '**',
+                pathname: '**'
             },
             {
                 protocol: 'https',
                 hostname: 'dog.ceo',
                 port: '',
-                pathname: '**',
+                pathname: '**'
             },
             {
                 protocol: 'https',
                 hostname: 'images.dog.ceo',
                 port: '',
-                pathname: '**',
+                pathname: '**'
             },
             {
                 protocol: 'https',
                 hostname: 'placekitten.com',
                 port: '',
-                pathname: '**',
+                pathname: '**'
             },
             {
                 protocol: 'https',
                 hostname: 'images.unsplash.com',
                 port: '',
-                pathname: '**',
+                pathname: '**'
             },
             {
                 protocol: 'https',
                 hostname: 'dl5zpyw5k3jeb.cloudfront.net',
                 port: '',
-                pathname: '**',
+                pathname: '**'
+            },
+            {
+                protocol: 'https',
+                hostname: 'cdn.discordapp.com',
+                port: '',
+                pathname: '**'
             }
-        ],
+        ]
     }
-}
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
