@@ -3,7 +3,7 @@ import { Card, CardBody, CardHeader } from '@nextui-org/card';
 import Image from 'next/image';
 import { Chip } from '@nextui-org/chip';
 import { firstLetterUppercase } from '@/lib/utils';
-import { auth } from '@clerk/nextjs';
+import { auth, SignedIn } from '@clerk/nextjs';
 import AddToFavorite from '@/app/category/components/card/add-to-favorite';
 
 type CardProps = {
@@ -19,7 +19,7 @@ const AnimalCard = async ({ pet, favorites }: CardProps) => {
     };
 
     // Check if the pet is in the favorites array list of objects
-    const isFavorite = favorites.some((favorite) => favorite.id === id);
+    const isFavorite = favorites?.some((favorite) => favorite.id === id);
 
     const { userId } = auth();
 
@@ -49,7 +49,9 @@ const AnimalCard = async ({ pet, favorites }: CardProps) => {
                     <p className="text-foreground-600">{firstLetterUppercase(breed)}</p>
                 </CardBody>
             </Link>
-            <AddToFavorite petId={pet.id} userId={userId} isFavorite={isFavorite} />
+            <SignedIn>
+                <AddToFavorite petId={pet.id} userId={userId} isFavorite={isFavorite} />
+            </SignedIn>
         </Card>
     );
 };
