@@ -3,11 +3,12 @@ import Image from 'next/image';
 import PetBadgeDetails from '@/app/pet/components/pet-badge-details';
 import PetAdoptionButton from '@/app/pet/components/pet-adoption-button';
 import PetsAvailableForAdoption from '@/components/homepage/pets-available-for-adoption';
+import { auth } from '@clerk/nextjs';
 
 async function getPetById(id: string) {
     const res = await fetch(`${process.env.API_URL}/animals?id=${id}`, {
         next: {
-            revalidate: 10
+            revalidate: 0
         }
     });
 
@@ -26,10 +27,11 @@ async function getPetById(id: string) {
 
 async function Page({ params: { slug } }: { params: { slug: string } }) {
     const pet: Pet = await getPetById(slug);
+    const { userId } = auth();
 
     return (
         <MaxWidthWrapper className="my-8">
-            <div className="grid-cols-2 gap-4 md:grid">
+            <div className="mb-4 grid-cols-2 gap-4 md:grid">
                 <Image
                     alt={`${pet.name} image`}
                     className="h-[400px] w-full rounded border object-cover md:h-[500px]"
@@ -46,7 +48,7 @@ async function Page({ params: { slug } }: { params: { slug: string } }) {
                         className="prose my-4"
                         dangerouslySetInnerHTML={{ __html: pet.description }}
                     ></div>
-                    <PetAdoptionButton pet={pet} />
+                    <PetAdoptionButton pet={pet} userId={userId} />
                 </div>
             </div>
             <PetsAvailableForAdoption />

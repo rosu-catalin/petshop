@@ -4,7 +4,8 @@ import {
     DropdownItem,
     DropdownMenu,
     DropdownSection,
-    DropdownTrigger
+    DropdownTrigger,
+    Link
 } from '@nextui-org/react';
 import { useAuth, useUser } from '@clerk/nextjs';
 import { useRouter } from 'next/navigation';
@@ -57,7 +58,16 @@ const UserAvatar = () => {
                             <p className="font-bold">{user?.fullName}</p>
                             <p>{user?.primaryEmailAddress?.emailAddress}</p>
                         </DropdownItem>
-                        <DropdownItem key="dashboard">Dashboard</DropdownItem>
+                        <DropdownItem key="dashboard">
+                            <Link href="/dashboard" color="foreground">
+                                Dashboard
+                            </Link>
+                        </DropdownItem>
+                        <DropdownItem key="profile-dashboard">
+                            <Link href="/user-profile" color="foreground">
+                                Profile
+                            </Link>
+                        </DropdownItem>
                     </DropdownSection>
 
                     <DropdownSection aria-label="Logout">

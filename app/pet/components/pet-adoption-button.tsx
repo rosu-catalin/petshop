@@ -1,31 +1,39 @@
 'use client';
 
 import { Button } from '@nextui-org/react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
-const PetAdoptionButton = ({ pet }: { pet: Pet }) => {
-    const [clicked, setClicked] = useState(false);
+type Props = {
+    pet: Pet;
+    userId: string | undefined | null;
+};
 
-    useEffect(() => {
-        const timeout = setTimeout(() => {
-            setClicked(false);
-        }, 1000);
+const PetAdoptionButton = ({ pet, userId }: Props) => {
+    const [loading, setLoading] = useState(false);
+    const router = useRouter();
 
-        return () => {
-            clearTimeout(timeout);
-        };
-    }, [clicked]);
+    const handleAdoption = async () => {
+        setLoading(true);
+
+        await fetch(`https://animals-adoption.up.railway.app/api/reserve/${userId}/${pet.id}`, {
+            method: 'PUT'
+        });
+
+        router.refresh();
+        setLoading(false);
+    };
 
     return (
         <Button
-            isLoading={clicked}
-            onClick={() => setClicked(!clicked)}
             disabled={pet.reserved || false}
-            color="primary"
+            color={pet.reserved ? 'danger' : 'primary'}
             radius={'sm'}
             className="h-12 w-full sm:w-[400px]"
+            onClick={handleAdoption}
+            isLoading={loading}
         >
-            {pet.reserved ? 'Not available' : 'Adopt me'}
+            {pet.reserved ? 'Reserved' : 'Adopt me'}
         </Button>
     );
 };

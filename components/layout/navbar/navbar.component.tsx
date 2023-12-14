@@ -15,12 +15,22 @@ import { useState } from 'react';
 import { SignedIn, SignedOut } from '@clerk/nextjs';
 import UserAvatar from '@/components/homepage/hero/user-avatar';
 import { HeartIcon } from '@heroicons/react/24/solid';
+import { Badge } from '@nextui-org/badge';
 
 export default function Navigation() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const path = usePathname();
 
-    const menuItems = ['Reservations', 'Wishlist'];
+    const menuItems = [
+        {
+            name: 'Home',
+            href: '/'
+        },
+        {
+            name: 'Find Pets',
+            href: '/category?category=dogs'
+        }
+    ];
 
     return (
         <Navbar
@@ -60,13 +70,15 @@ export default function Navigation() {
             <NavbarContent justify="end">
                 <SignedIn>
                     <NavbarItem>
-                        <Link
-                            href="/dashboard"
-                            aria-label="Favorite Animals"
-                            title="See your favorite animals"
-                        >
-                            <HeartIcon className="h-8 w-8 transition-all hover:scale-95 hover:text-red-500" />
-                        </Link>
+                        <Badge content={0} size="md" color="primary">
+                            <Link
+                                href="/dashboard"
+                                aria-label="Favorite Animals"
+                                title="See your favorite animals"
+                            >
+                                <HeartIcon className="h-8 w-8 transition-all hover:scale-95 hover:text-red-500" />
+                            </Link>
+                        </Badge>
                     </NavbarItem>
                 </SignedIn>
                 <NavbarItem className="flex">
@@ -93,10 +105,10 @@ export default function Navigation() {
                                       ? 'danger'
                                       : 'foreground'
                             }
-                            href="#"
+                            href={item.href}
                             size="lg"
                         >
-                            {item}
+                            {item.name}
                         </Link>
                     </NavbarMenuItem>
                 ))}

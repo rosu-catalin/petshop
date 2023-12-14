@@ -1,5 +1,5 @@
 export async function getPetsFilteredBy(filters: Filters = {}) {
-    const url = new URL(`${process.env.API_URL}/animals`);
+    const url = new URL(`${process.env.API_URL}/animals?reserved=false`);
 
     for (const [key, value] of Object.entries(filters)) {
         if (value !== undefined && value !== null && key !== 'limit' && key !== 'randomLimit') {
@@ -9,7 +9,7 @@ export async function getPetsFilteredBy(filters: Filters = {}) {
 
     const response = await fetch(url, {
         next: {
-            revalidate: 120
+            revalidate: 0
         }
     });
 
