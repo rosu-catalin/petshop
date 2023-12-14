@@ -1,12 +1,10 @@
 import MaxWidthWrapper from '@/components/max-width-wrapper';
 import { getPetsFilteredBy } from '@/services/get-pets-filtered-by';
 import AnimalNavigation from '@/app/category/components/animal-navigation';
-import { Suspense } from 'react';
 import CategoryFilters from '@/app/category/components/category-filters';
 import { getBreedsByCategory } from '@/services/get-breeds-by-category';
 import CategoryPagination from '@/app/category/components/category-pagination';
-import AnimalCard from '@/app/category/components/animal-card';
-import SkeletonAnimalCards from '@/app/category/components/skeleton-animal-cards';
+import AnimalCards from '@/app/category/components/card';
 
 const Page = async ({
     searchParams
@@ -62,14 +60,7 @@ const Page = async ({
                                 ({pets.length} available)
                             </h1>
                         </div>
-                        <Suspense fallback={<SkeletonAnimalCards />}>
-                            <div className="grid grid-cols-2 gap-2 md:grid-cols-pets md:gap-4">
-                                {entries.length === 0 && <p>No pets found</p>}
-                                {entries.map((pet) => (
-                                    <AnimalCard pet={pet} key={pet.id} />
-                                ))}
-                            </div>
-                        </Suspense>
+                        <AnimalCards entries={entries} />
                     </div>
                 </div>
                 <CategoryPagination dataLength={pets.length} />
