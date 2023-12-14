@@ -6,7 +6,10 @@ import getFavoritesPets from '@/services/get-favorite-pets';
 
 const AnimalCards = async ({ entries }: { entries: Pet[] }) => {
     const { userId } = auth();
+
     const favorites = await getFavoritesPets(userId);
+    console.log('userId', userId);
+    console.log('favorites', favorites);
 
     return (
         <Suspense fallback={<SkeletonAnimalCards />}>

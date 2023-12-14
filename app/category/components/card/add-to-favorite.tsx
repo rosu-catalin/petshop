@@ -13,6 +13,7 @@ type Props = {
 
 const AddToFavorite = ({ petId, userId, isFavorite }: Props) => {
     const [loading, setLoading] = useState(false);
+    const [isFavoriteState, setIsFavorite] = useState(isFavorite);
     const router = useRouter();
 
     const handleAddToFavorite = async () => {
@@ -27,6 +28,7 @@ const AddToFavorite = ({ petId, userId, isFavorite }: Props) => {
         });
 
         router.refresh();
+        setIsFavorite(true);
         setLoading(false);
     };
 
@@ -41,13 +43,14 @@ const AddToFavorite = ({ petId, userId, isFavorite }: Props) => {
         });
 
         router.refresh();
+        setIsFavorite(false);
         setLoading(false);
     };
 
     return (
         <Button
             className="absolute right-3 z-10"
-            color={isFavorite ? 'danger' : 'default'}
+            color={isFavoriteState ? 'danger' : 'default'}
             aria-label="Add to favorites"
             radius="full"
             onClick={isFavorite ? handleRemoveFromFavorite : handleAddToFavorite}
