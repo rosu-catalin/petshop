@@ -3,7 +3,7 @@ import Image from 'next/image';
 import PetBadgeDetails from '@/app/pet/components/pet-badge-details';
 import PetAdoptionButton from '@/app/pet/components/pet-adoption-button';
 import PetsAvailableForAdoption from '@/components/homepage/pets-available-for-adoption';
-import { auth } from '@clerk/nextjs';
+import { auth, SignedIn } from '@clerk/nextjs';
 
 async function getPetById(id: string) {
     const res = await fetch(`${process.env.API_URL}/animals?id=${id}`, {
@@ -48,7 +48,9 @@ async function Page({ params: { slug } }: { params: { slug: string } }) {
                         className="prose my-4"
                         dangerouslySetInnerHTML={{ __html: pet.description }}
                     ></div>
-                    <PetAdoptionButton pet={pet} userId={userId} />
+                    <SignedIn>
+                        <PetAdoptionButton pet={pet} userId={userId} />
+                    </SignedIn>
                 </div>
             </div>
             <PetsAvailableForAdoption />
